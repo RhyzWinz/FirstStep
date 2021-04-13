@@ -1,0 +1,37 @@
+const { chromium } = require('playwright');
+
+(async () => {
+  const browser = await chromium.launch({
+    headless: false, slowMo: 50
+  });
+  const context = await browser.newContext();
+
+  // Открываем страницу
+  const page = await context.newPage();
+
+  // Переходим на страницу регистрации
+  await page.goto('https://dev.lk.tr-line.ru/sign-up');
+
+  // Кликаем по полю e-mail
+  await page.click('input[name="e-mail"]');
+
+  // Вводим e-mail
+  await page.fill('input[name="e-mail"]');
+
+  // Кликаем поле телефон
+  await page.click('input[name="phone"]');
+
+  // Заполняем поле телефон
+  await page.fill('input[name="phone"]', '');
+
+  // Кликаем далее
+  await page.click('button:has-text("Далее")');
+
+  /*
+  Далее нам нужно получить SMS с кодом и вытащить код подтверждения.
+  Подтвердить регистрацию и проверить, произошла ли дальше авторизация
+  */
+ 
+//await context.close();
+//await browser.close();
+})();
