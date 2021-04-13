@@ -1,0 +1,32 @@
+const { chromium } = require('playwright');
+
+(async () => {
+  const browser = await chromium.launch({
+    headless: false, slowMo: 50
+  });
+  const context = await browser.newContext();
+
+  // Открываем страницу
+  const page = await context.newPage();
+
+  // Открываем страницу авторизации
+  await page.goto('https://dev.lk.tr-line.ru/sign-in');
+
+  // Кликаем на поле ввода логина
+  await page.click('input[name="login"]');
+
+  // Вводим логин
+  await page.fill('input[name="login"]', 'tnepavel@gmail.com');
+
+  // Кликаем на поле ввода пароля
+  await page.click('input[name="password"]');
+
+  // Вводим пароль
+  await page.fill('input[name="password"]', 'TuUFHG/6sxtb');
+
+  // Нажимаем "Войти"
+  await page.click('button:has-text("Войти")');
+
+  //await context.close();
+  //await browser.close();
+})();
